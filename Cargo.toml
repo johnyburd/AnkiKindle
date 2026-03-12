@@ -1,0 +1,21 @@
+[package]
+name = "anki-kindle-server"
+version = "0.1.0"
+edition = "2021"
+publish = false
+rust-version = "1.80"
+
+[dependencies]
+anki = { path = "../anki/rslib" }
+anyhow = "1.0.98"
+axum = { version = "0.8.4", features = ["multipart", "macros"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+tokio = { version = "1.45", features = ["fs", "rt-multi-thread", "macros", "signal", "io-util"] }
+tracing = { version = "0.1.41", features = ["max_level_trace", "release_max_level_debug"] }
+tracing-subscriber = { version = "0.3.20", features = ["fmt", "env-filter"] }
+
+[[bin]]
+name = "anki-kindle"
+path = "src/main.rs"
