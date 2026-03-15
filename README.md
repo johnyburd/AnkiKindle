@@ -13,6 +13,7 @@ This project is a minimal implementation of an [Anki](https://apps.ankiweb.net/)
 
 # Installation
 * Install [KUAL](https://wiki.mobileread.com/wiki/KUAL)
+* Fix browser localhost resolution
 * ...
 
 # Development

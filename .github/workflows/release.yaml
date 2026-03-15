@@ -23,7 +23,10 @@ jobs:
           curl -L https://github.com/koreader/koxtoolchain/releases/download/2025.05/kindlehf.tar.gz \
             | tar -xz
 
-      - name: Prepare Release
+      - name: Install protoc
+        run: sudo apt-get install -y protobuf-compiler
+
+      - name: Build Release
         run: cargo build --target arm-unknown-linux-gnueabihf --release
 
       - name: Create Release
