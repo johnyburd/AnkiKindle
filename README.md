@@ -25,6 +25,7 @@ export ANKI_PASSWORD="password"
 cargo run
 ```
 ## Build for Kindle
+Download kindle toolchain: [github.com/koreader/koxtoolchain/releases](https://github.com/koreader/koxtoolchain/releases) and extract so `x-tools` is in the project root
 ```
 rustup target add arm-unknown-linux-gnueabihf
 cargo build --target arm-unknown-linux-gnueabihf --release

@@ -1,13 +1,10 @@
 name: Build and Release
-
 on:
   push:
     tags:
       - 'v*'
-
 permissions:
   contents: write
-
 jobs:
   build:
     name: Build and Release
@@ -20,6 +17,11 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           targets: arm-unknown-linux-gnueabihf
+
+      - name: Download and extract kindlehf toolchain
+        run: |
+          curl -L https://github.com/koreader/koxtoolchain/releases/download/2025.05/kindlehf.tar.gz \
+            | tar -xz
 
       - name: Prepare Release
         run: cargo build --target arm-unknown-linux-gnueabihf --release

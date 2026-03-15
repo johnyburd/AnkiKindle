@@ -1,2 +1,2 @@
 [target.arm-unknown-linux-gnueabihf]
-linker = "/home/johnyburd/x-tools/arm-kindlehf-linux-gnueabihf/bin/arm-kindlehf-linux-gnueabihf-gcc"
+linker = "x-tools/arm-kindlehf-linux-gnueabihf/bin/arm-kindlehf-linux-gnueabihf-gcc"
