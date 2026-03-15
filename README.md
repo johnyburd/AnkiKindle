@@ -13,8 +13,12 @@ This project is a minimal implementation of an [Anki](https://apps.ankiweb.net/)
 
 # Installation
 * Install [KUAL](https://wiki.mobileread.com/wiki/KUAL)
-* Fix browser localhost resolution
-* ...
+* Download the [latest release](https://github.com/johnyburd/AnkiKindle/releases/download/untagged-dd2ef5bcba3ce1d1e0b9/anki-kindle.zip) and extract it in your KUAL extensions directory.
+* Set your AnkiWeb username and password in AnkiKindle/bin/launch.sh if using sync.
+   * Otherwise be sure to copy over your Anki collection manually.
+* Run "Install Custom Browser" (this step is only required once)
+* Run "Launch Anki Server" (this step is required after each boot)
+* Navigate to "http://kindle.local" in the kindle browser. Bookmark it for easy access.
 
 # Development
 ## Build for Dev
