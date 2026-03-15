@@ -1,0 +1,25 @@
+#!/bin/bash
+
+lipc-set-prop -s "com.lab126.chromebar" "activityIndicator" "{   \"activityIndicator\": {\"clientId\": \"com.lab126.browser\",\"action\": \"start\",\"text\": \"\",\"timeout\": 30000}}"
+
+export XDG_CONFIG_HOME="/mnt/us/system/browser/"
+if [ -d $XDG_CONFIG_HOME ]
+then
+    CACHE_SIZE=`du -s /mnt/us/system/browser/ | awk -F '[/ ]' '{print $1}'`
+    CACHE_LIMIT=65536
+    if [ $CACHE_SIZE -gt $CACHE_LIMIT ]
+    then
+        rm -rf /mnt/us/system/browser/*
+    fi
+fi
+
+export LD_LIBRARY_PATH="/usr/bin/chromium/lib:/usr/bin/chromium/usr/lib:/usr/lib/"
+
+exec chroot /chroot /usr/bin/chromium/bin/kindle_browser --no-zygote --no-sandbox --single-process --skia-resource-cache-limit-mb=64 \
+     --disable-gpu --in-process-gpu --disable-gpu-sandbox --disable-gpu-compositing \
+     --enable-dom-distiller --enable-distillability-service --force-device-scale-factor=2 --js-flags="jitless" \
+     --content-shell-hide-toolbar --content-shell-host-window-cord=0,215 \
+     --force-gpu-mem-available-mb=40 --enable-low-end-device-mode --enable-low-res-tiling --disable-site-isolation-trials \
+     --user-agent="Mozilla/5.0 (X11; U; Linux armv7l like Android; en-us) AppleWebKit/531.2+ (KHTML, like Gecko) Version/5.0 Safari/533.2+ Kindle/3.0+" \
+     --enable-grayscale-mode \
+     --host-resolver-rules="MAP kindle.local 127.0.0.1"

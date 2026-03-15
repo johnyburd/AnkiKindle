@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "name": "Anki Kindle",
+      "priority": -998,
+      "items": [
+        {
+          "name": "Launch Anki Server",
+          "priority": 1,
+          "action": "bin/launch.sh",
+          "exitmenu": true
+        },
+        {
+          "name": "Kill Anki Kindle",
+          "priority": 3,
+          "action": "bin/kill.sh",
+          "exitmenu": false
+        },
+        {
+          "name": "Install Custom Browser",
+          "priority": 5,
+          "action": "bin/install_browser.sh",
+          "exitmenu": false
+        },
+        {
+          "name": "Restore Original Browser",
+          "priority": 6,
+          "action": "bin/restore_browser.sh",
+          "exitmenu": false
+        }
+      ]
+    }
+  ]
+}
