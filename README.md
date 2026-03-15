@@ -7,6 +7,7 @@ This project is a minimal implementation of an [Anki](https://apps.ankiweb.net/)
 * Card Review
 * Sync decks and media to and from [AnkiWeb ](https://ankiweb.net/).
 * Custom Study 5 extra cards
+* Works offline
 
 ## Tested Devices
 * [Kindle PW5 (11th gen)](https://wiki.mobileread.com/wiki/Kindle_Serial_Numbers)
