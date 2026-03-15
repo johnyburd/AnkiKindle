@@ -1,0 +1,33 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: arm-unknown-linux-gnueabihf
+
+      - name: Prepare Release
+        run: cargo build --target arm-unknown-linux-gnueabihf --release
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "target/arm-unknown-linux-gnueabihf/release/anki-kindle"
+          allowUpdates: true
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}

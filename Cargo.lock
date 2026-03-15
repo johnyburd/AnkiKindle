@@ -60,6 +60,7 @@ dependencies = [
 [[package]]
 name = "anki"
 version = "0.0.0"
+source = "git+https://github.com/ankitects/anki.git?tag=25.09.2#3890e12c9e48c028c3f12aa58cb64bd9f8895e30"
 dependencies = [
  "ammonia",
  "anki_i18n",
@@ -101,7 +102,6 @@ dependencies = [
  "once_cell",
  "pbkdf2",
  "percent-encoding-iri",
- "permutation",
  "phf",
  "pin-project",
  "prettyplease",
@@ -140,15 +140,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "anki-kindle-server"
-version = "1.0.0"
+name = "anki-kindle"
+version = "0.1.0"
 dependencies = [
  "anki",
- "anyhow",
+ "anki_proto",
  "axum",
+ "mime_guess",
+ "regex",
  "reqwest",
- "serde",
- "serde_json",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -157,6 +157,7 @@ dependencies = [
 [[package]]
 name = "anki_i18n"
 version = "0.0.0"
+source = "git+https://github.com/ankitects/anki.git?tag=25.09.2#3890e12c9e48c028c3f12aa58cb64bd9f8895e30"
 dependencies = [
  "anki_io",
  "anyhow",
@@ -177,6 +178,7 @@ dependencies = [
 [[package]]
 name = "anki_io"
 version = "0.0.0"
+source = "git+https://github.com/ankitects/anki.git?tag=25.09.2#3890e12c9e48c028c3f12aa58cb64bd9f8895e30"
 dependencies = [
  "camino",
  "snafu",
@@ -186,6 +188,7 @@ dependencies = [
 [[package]]
 name = "anki_proto"
 version = "0.0.0"
+source = "git+https://github.com/ankitects/anki.git?tag=25.09.2#3890e12c9e48c028c3f12aa58cb64bd9f8895e30"
 dependencies = [
  "anki_io",
  "anki_proto_gen",
@@ -204,6 +207,7 @@ dependencies = [
 [[package]]
 name = "anki_proto_gen"
 version = "0.0.0"
+source = "git+https://github.com/ankitects/anki.git?tag=25.09.2#3890e12c9e48c028c3f12aa58cb64bd9f8895e30"
 dependencies = [
  "anki_io",
  "anyhow",
@@ -3470,12 +3474,6 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 name = "percent-encoding-iri"
 version = "2.2.0"
 source = "git+https://github.com/ankitects/rust-url.git?rev=bb930b8d089f4d30d7d19c12e54e66191de47b88#bb930b8d089f4d30d7d19c12e54e66191de47b88"
-
-[[package]]
-name = "permutation"
-version = "0.4.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df202b0b0f5b8e389955afd5f27b007b00fb948162953f1db9c70d2c7e3157d7"
 
 [[package]]
 name = "petgraph"

@@ -2,176 +2,184 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anki - Kindle Edition</title>
-    <script src="/htmx.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anki Kindle</title>
+  <script src="/jquery.min.js"></script>
+  <script src="/htmx.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: serif;
-            font-size: 18px;
-            line-height: 1.6;
-            background: white;
-            color: black;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
+    body {
+      font-family: serif;
+      font-size: 18px;
+      line-height: 1.6;
+      background: white;
+      color: black;
+      padding: 20px;
+      margin: 0 auto;
+    }
 
-        /* High contrast for e-ink */
-        .container {
-            border: 3px solid black;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
+    .container {
+      border: 2px solid black;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
 
-        h1 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 2px solid black;
-            padding-bottom: 10px;
-        }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      text-align: center;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+    }
 
-        h2 {
-            font-size: 22px;
-            margin-bottom: 15px;
-        }
+    h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
 
-        /* Large tap targets for touch */
-        button {
-            background: white;
-            border: 3px solid black;
-            padding: 20px 30px;
-            font-size: 20px;
-            font-weight: bold;
-            margin: 10px 5px;
-            cursor: pointer;
-            min-width: 150px;
-            min-height: 70px;
-        }
+    button {
+      background: white;
+      border: 2px solid black;
+      padding: 20px 30px;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+      cursor: pointer;
+      min-width: 120px;
+      min-height: 70px;
+    }
 
-        button:active {
-            background: black;
-            color: white;
-        }
+    button:active {
+      background: black;
+      color: white;
+    }
 
-        .button-row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
 
-        .card-content {
-            font-size: 20px;
-            padding: 30px;
-            border: 2px solid black;
-            margin: 20px 0;
-            min-height: 200px;
-            background: white;
-        }
+    .card-content {
+      font-size: 20px;
+      padding: 15px 30px;
+      border: 2px solid black;
+      min-height: 200px;
+      background: white;
+    }
 
-        .deck-list {
-            list-style: none;
-        }
+    .deck-list {
+      list-style: none;
+    }
 
-        .deck-item {
-            border: 2px solid black;
-            padding: 15px;
-            margin: 10px 0;
-            cursor: pointer;
-            font-size: 18px;
-        }
+    .deck-item {
+      border: 2px solid black;
+      padding: 15px;
+      margin: 10px 0;
+      cursor: pointer;
+      font-size: 18px;
+    }
 
-        .deck-item:active {
-            background: black;
-            color: white;
-        }
+    .deck-item:active {
+      background: black;
+      color: white;
+    }
 
-        .deck-counts {
-            font-size: 16px;
-            margin-top: 5px;
-        }
+    .deck-counts {
+      font-size: 16px;
+      margin-top: 5px;
+    }
 
 
-        .info {
-            text-align: center;
-            font-size: 16px;
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid black;
-        }
+    .info {
+      text-align: center;
+      font-size: 16px;
+      margin: 10px 0;
+      padding: 10px;
+      border: 1px solid black;
+    }
 
-        .answer-buttons {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
+    .answer-buttons {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        .answer-buttons button {
-            flex: 1;
-            min-width: 120px;
-        }
+    .answer-buttons button {
+      flex: 1;
+      min-width: 120px;
+    }
 
-        /* Loading indicator */
-        .loading {
-            text-align: center;
-            font-size: 20px;
-            padding: 40px;
-        }
+    .loading {
+      text-align: center;
+      font-size: 20px;
+      padding: 40px;
+    }
 
-        .hidden {
-            display: none;
-        }
+    .hidden {
+      display: none;
+    }
 
-        .back-button {
-            margin-bottom: 20px;
-        }
+    .back-button {
+      margin-bottom: 20px;
+    }
 
-        img {
-            max-height: 100px;
-        }
+    img {
+      max-height: 100px;
+    }
 
-        .no-audio {
-            opacity: 0.3;
-            font-size: 0.8em;
-        }
-    </style>
+    .no-audio {
+      opacity: 0.3;
+      font-size: 0.8em;
+    }
+
+    .card-content .container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card-content .container input[type="checkbox"],
+    .card-content .container input[type="radio"] {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+    }
+  </style>
 </head>
 
 <body>
-    <div id="main-content">
-        <div class="container">
-            <h1>Anki - Kindle Edition</h1>
-            <div hx-get="/api/decks/html" hx-trigger="load" hx-target="#deck-list" hx-swap="innerHTML">
-            </div>
-            <div id="deck-list" class="deck-list"></div>
-            <div class="button-row">
-                <button hx-post="/api/sync" hx-target="#sync-status" hx-swap="innerHTML">Sync with AnkiWeb</button>
-            </div>
-            <div id="sync-status"></div>
-        </div>
+  <div id="main-content">
+    <h1>Anki - Kindle Edition</h1>
+    <div hx-get="/api/decks/html" hx-trigger="load" hx-target="#deck-list" hx-swap="innerHTML">
     </div>
+    <div id="deck-list" class="deck-list"></div>
+    <div class="button-row">
+      <button hx-post="/api/sync" hx-target="#sync-status" hx-swap="innerHTML">Sync with AnkiWeb</button>
+    </div>
+    <div id="sync-status"></div>
+  </div>
 
-    <div id="card-area"></div>
+  <div id="card-area"></div>
 
-    <script>
-        document.body.addEventListener('htmx:afterSwap', function (event) {
-            const cardArea = document.getElementById('card-area');
-            if (cardArea.innerHTML.trim() && !cardArea.innerHTML.includes('loading')) {
-                document.getElementById('main-content').classList.add('hidden');
-            }
-        });
-    </script>
+  <script>
+    document.body.addEventListener('htmx:afterSwap', function (event) {
+      const cardArea = document.getElementById('card-area');
+      if (cardArea.innerHTML.trim() && !cardArea.innerHTML.includes('loading')) {
+        document.getElementById('main-content').classList.add('hidden');
+      }
+    });
+  </script>
 </body>
 
 </html>

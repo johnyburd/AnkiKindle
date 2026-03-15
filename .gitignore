@@ -1,2 +1,4 @@
 target/
 collection*
+.crush.json
+.crush/
