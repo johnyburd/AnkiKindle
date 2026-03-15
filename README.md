@@ -2,6 +2,11 @@
 
 This project is a minimal implementation of an [Anki](https://apps.ankiweb.net/) app for the Kindle.
 
+<table><tr>
+  <td><img src="assets/decks.jpeg"/></td>
+  <td><img src="assets/answer.jpeg"/></td>
+</tr></table>
+
 ## Features
 
 * Card Review
