@@ -26,13 +26,75 @@ jobs:
       - name: Install protoc
         run: sudo apt-get install -y protobuf-compiler
 
-      - name: Build Release
+      - name: Prepare Release
         run: cargo build --target arm-unknown-linux-gnueabihf --release
+
+      - name: Package extension
+        run: |
+          mkdir -p AnkiKindle/bin
+
+          cp target/arm-unknown-linux-gnueabihf/release/anki-kindle AnkiKindle/bin/anki-kindle
+
+          cat > AnkiKindle/bin/launch.sh << 'EOF'
+          #!/bin/bash
+          WD=$(dirname $0)
+          export ANKI_COLLECTION_PATH=/mnt/us/documents/collection.anki2
+          export ANKI_PASSWORD=CHANGEME
+          export ANKI_USERNAME=CHANGEME@example.com
+          export BIND_ADDR=127.0.0.1:80
+          killall anki-kindle
+          $WD/anki-kindle $* &> /mnt/us/anki.log &
+          EOF
+          chmod +x AnkiKindle/bin/launch.sh
+
+          cat > AnkiKindle/bin/kill.sh << 'EOF'
+          #!/bin/bash
+          killall anki-kindle
+          EOF
+          chmod +x AnkiKindle/bin/kill.sh
+
+          cat > AnkiKindle/menu.json << 'EOF'
+          {
+            "items": [
+              {
+                "name": "Anki Kindle",
+                "priority": -998,
+                "items": [
+                  {
+                    "name": "Launch Anki Server 4",
+                    "priority": 1,
+                    "action": "bin/launch.sh",
+                    "exitmenu": true
+                  },
+                  {
+                    "name": "Kill Anki Kindle",
+                    "priority": 3,
+                    "action": "bin/kill.sh",
+                    "exitmenu": false
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
+
+          cat > AnkiKindle/config.xml << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <extension>
+            <information>
+            </information>
+            <menus>
+              <menu type="json" dynamic="true">menu.json</menu>
+            </menus>
+          </extension>
+          EOF
+
+          zip -r anki-kindle.zip AnkiKindle/
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "target/arm-unknown-linux-gnueabihf/release/anki-kindle"
+          artifacts: "anki-kindle.zip"
           allowUpdates: true
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
